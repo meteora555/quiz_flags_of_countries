@@ -1,6 +1,7 @@
 import './index.scss';
 import React from 'react';
 
+// Создаем массив из вопросов
 const questions = [
   {
     title: 'Флаг какой страны,изображён на фото? Начнем с лёгкого...',
@@ -64,6 +65,7 @@ const questions = [
   },
 ];
 
+//функциональынй компонент результата игры, через просы прокинули количество правильных ответов, и в h2 указали количиство вопросов из массива.
 function Result({ correct }) {
   return (
     <div className="result">
@@ -77,7 +79,7 @@ function Result({ correct }) {
     </div>
   );
 }
-
+//ф-ый компонент самой игры, через пропсы- вопрос, функция которая определяет какой ответ правильный и шаг вопроса.
 function Game({ question, onClickVariant, step }) {
   const percentage = Math.round((step / questions.length) * 100);
 
@@ -102,10 +104,12 @@ function Game({ question, onClickVariant, step }) {
 }
 
 function App() {
+  // используем хук useState для отслеживания вопроса по счету
   const [step, setStep] = React.useState(0);
+  //хук для отслеживания правильных ответов
   const [correct, setCorrect] = React.useState(0);
   const question = questions[step];
-
+  // функция для перехода вопросов и счетчика правильных ответов
   const onClickVariant = (index) => {
     setStep(step + 1);
 
@@ -115,6 +119,7 @@ function App() {
   };
 
   return (
+    //проверяем какой компонент использовать, если шаг не равен длине массива, т.е. количеству вопросов то будет компонент game как только вопросы закончаться, то отрендериться компонент результата
     <div className="App">
       {step != questions.length ? (
         <Game question={question} onClickVariant={onClickVariant} step={step} />
